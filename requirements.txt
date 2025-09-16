@@ -1,22 +1,21 @@
-
+# Production WSGI Server
 gunicorn==22.0.0
 
+# Core Flask Framework  
 flask==3.0.3
 flask-cors==4.0.1
 requests==2.32.3
 
-flask-cors==4.0.1
-gunicorn==22.0.0
+# Data Visualization
 matplotlib==3.8.0
 numpy>=2.1.0
-protobuf==3.20.3
-requests==2.31.0
 
-
+# LangChain and LLM Integration
 langchain==0.3.25
 langchain-core==0.3.65
 langchain-community==0.3.25
 langchain-text-splitters==0.3.8
 langchain-mistralai==0.2.0
 
-
+# Environment variables
+python-dotenv==1.0.0
