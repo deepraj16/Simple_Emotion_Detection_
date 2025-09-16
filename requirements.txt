@@ -7,8 +7,8 @@ flask-cors==4.0.1
 requests==2.32.3
 
 # Data Visualization
-matplotlib==3.8.0
-numpy>=2.1.0
+matplotlib==3.9.0
+numpy>=1.24.0
 
 # LangChain and LLM Integration
 langchain==0.3.25
