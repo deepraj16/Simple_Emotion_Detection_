@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Emotion Detection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            resize: vertical;
+            min-height: 120px;
+        }
+        
+        button {
+            background: #007bff;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        button:hover {
+            background: #0056b3;
+        }
+        
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .emotions {
+            background: #d4edda;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .emotions h3 {
+            color: #155724;
+            margin-top: 0;
+        }
+        
+        .emotion-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #c3e6cb;
+        }
+        
+        .emotion-item:last-child {
+            border-bottom: none;
+        }
+        
+        .charts {
+            margin: 30px 0;
+        }
+        
+        .chart {
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .chart img {
+            max-width: 100%;
+            border-radius: 5px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .chart h4 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎭 Simple Emotion Detection</h1>
+        
+        <form method="POST">
+            <div class="form-group">
+                <label for="text">Enter your text:</label>
+                <textarea name="text" id="text" placeholder="Type or paste your text here to analyze emotions..." required></textarea>
+            </div>
+            
+            <button type="submit">Analyze Emotions</button>
+        </form>
+
+        {% if error_message %}
+        <div class="error">
+            {{ error_message }}
+        </div>
+        {% endif %}
+
+        {% if emotions and 'message' not in emotions %}
+        <div class="emotions">
+            <h3>🎯 Detected Emotions:</h3>
+            {% for emotion, percentage in emotions.items() %}
+            <div class="emotion-item">
+                <span><strong>{{ emotion.title() }}</strong></span>
+                <span>{{ percentage }}%</span>
+            </div>
+            {% endfor %}
+        </div>
+
+        {% if charts %}
+        <div class="charts">
+            <h3>📊 Visual Charts:</h3>
+            
+            {% if charts.pie %}
+            <div class="chart">
+                <h4>Pie Chart</h4>
+                <img src="data:image/png;base64,{{ charts.pie }}" alt="Pie Chart">
+            </div>
+            {% endif %}
+            
+            {% if charts.bar %}
+            <div class="chart">
+                <h4>Bar Chart</h4>
+                <img src="data:image/png;base64,{{ charts.bar }}" alt="Bar Chart">
+            </div>
+            {% endif %}
+        </div>
+        {% endif %}
+        
+        {% elif emotions and 'message' in emotions %}
+        <div class="error">
+            {{ emotions.message }}
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
